@@ -9,6 +9,7 @@ lerna-debug.log*
 
 #AppleMusic Secret Key
 AuthKey_6PB8M3SH7V.p8
+.env
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
