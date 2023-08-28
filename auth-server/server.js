@@ -5,9 +5,9 @@ let querystring = require('querystring')
 let cors = require('cors')
 let app = express()
 
-let redirect_uri_login = process.env.redirect_uri_login
-let client_id = process.env.client_id
-let client_secret = process.env.client_secret
+let redirect_uri_login = process.env.REDIRECT_URI_LOGIN
+let client_id = process.env.CLIENT_ID
+let client_secret = process.env.CLIENT_SECRET
 
 app.use(cors())
 
