@@ -2,11 +2,11 @@ import React from 'react';
 // import Checkbox from 'react-simple-checkbox';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
-//import { updateToken, fetchSpotifyPlaylists, prepareSpotifyDataToBeTransfered } from '../../modules/actions/spotify-actions'
+import { updateToken, fetchSpotifyPlaylists, prepareSpotifyDataToBeTransfered } from '../../modules/actions/spotify-actions'
 import PlaylistCard from '../../components/PlaylistCard/playlistcard'
 import ScaleLoader from "react-spinners/ScaleLoader"
 import queryString from 'query-string';
-//import { apple_auth } from '../../apple/apple-provider'
+import { apple_auth } from '../../apple/apple-provider'
 import './style.scss';
 
 class Playlist extends React.Component {
@@ -28,28 +28,28 @@ class Playlist extends React.Component {
         this.selectedPlaylists = new Set();
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if(this.props.loaded !== prevProps.loaded){
-    //         this.setState({
-    //             loading: false,
-    //             parsedJsonData: this.props.playlists
-    //         })
-    //     }
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.loaded !== prevProps.loaded){
+            this.setState({
+                loading: false,
+                parsedJsonData: this.props.playlists
+            })
+        }
 
-    //     if (this.props.transferReady !== prevProps.transferReady) {
-    //         apple_auth.LogIn()
-    //             .then((res) => {
-    //                 if (res) {
-    //                     this.props.history.push({
-    //                         pathname: '/result',
-    //                     })
-    //                 }
-    //             })
-    //             .catch((error) => {
-    //                 console.log(error)
-    //             })
-    //     }
-    //}
+        if (this.props.transferReady !== prevProps.transferReady) {
+            apple_auth.LogIn()
+                .then((res) => {
+                    if (res) {
+                        this.props.history.push({
+                            pathname: '/result',
+                        })
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
 
     handleCheckChildElement = (event) => {
         let json_data = this.state.parsedJsonData
@@ -128,17 +128,15 @@ function mapStateToProps(state) {
     };
 }
 
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         updateToken: bindActionCreators(updateToken, dispatch),
-//         fetchSpotifyPlaylists: bindActionCreators(fetchSpotifyPlaylists, dispatch),
-//         prepareSpotifyDataToBeTransfered: bindActionCreators(prepareSpotifyDataToBeTransfered, dispatch)
-//     };
-// }
+function mapDispatchToProps(dispatch) {
+    return {
+        updateToken: bindActionCreators(updateToken, dispatch),
+        fetchSpotifyPlaylists: bindActionCreators(fetchSpotifyPlaylists, dispatch),
+        prepareSpotifyDataToBeTransfered: bindActionCreators(prepareSpotifyDataToBeTransfered, dispatch)
+    };
+}
 
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Playlist);
-
-export default Playlist
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Playlist);

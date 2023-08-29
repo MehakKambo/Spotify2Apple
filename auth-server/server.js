@@ -52,8 +52,8 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
 const private_key = fs.readFileSync('AuthKey_6PB8M3SH7V.p8').toString(); 
-const team_id = ''; 
-const key_id = ''; 
+const team_id = process.env.TEAM_ID 
+const key_id = process.env.KEY_ID
 const token = jwt.sign({}, private_key, {
   algorithm: 'ES256',
   expiresIn: '180d',
@@ -64,10 +64,19 @@ const token = jwt.sign({}, private_key, {
   }
 });
 
+const token_key = '12345'
+
 app.get('/token', function (req, res) {
+  if(req.query.key === token_key){
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({token: token}));
+  }
 });
+
+app.get('/token_key', function (req, res) {
+  res.setHeader('Content-type', 'application/json')
+  res.send(JSON.stringify({token_Key: token_key}))
+})
 
 let port = process.env.PORT || 8888
 console.log(`Listening on port ${port}. Go /login to initiate authentication flow.`)
