@@ -51,7 +51,7 @@ app.get('/callback', function(req, res) {
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
-const private_key = fs.readFileSync('AuthKey_6PB8M3SH7V.p8').toString(); 
+const private_key = fs.readFileSync('AuthKey_6.p8').toString(); 
 const team_id = process.env.TEAM_ID 
 const key_id = process.env.KEY_ID
 const token = jwt.sign({}, private_key, {
